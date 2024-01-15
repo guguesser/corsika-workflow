@@ -1,0 +1,9 @@
+Firstly, send an email to tanguy.pierog@kit.edu expressing interest in using the software so that he can provide the password required for the program installation.
+The installation of CORSIKA77500 and all its folders is available at the following link: https://web.iap.kit.edu/corsika/download/
+Enter the username 'corsika' and the password provided through the email received from the software's technical team.
+corsika-v770 > corsika-77500.tar.gz to get the most recent version of corsika-77500.
+
+As an example, if you have the file corsika-77500.tar.gz in the current directory, the installation on a LINUX system will look like (the commands are highlighted with the symbol '>'):
+> tar -zxf corsika-77500.tar.gz
+> cd corsika-77500/
+> ./coconut
