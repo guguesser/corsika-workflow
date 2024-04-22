@@ -7,3 +7,12 @@ As an example, if you have the file corsika-77500.tar.gz in the current director
 > tar -zxf corsika-77500.tar.gz
 > cd corsika-77500/
 > ./coconut
+> Compile in 32 or 64bit mode? [2 - Use compiler default ('-m64' on a 64bit machine)]
+> Which high energy hadronic interaction model do you want to use? [2 -  EPOS LHC]
+> Which low energy hadronic interaction model do you want to use? [4 - URQMD 1.3cr]
+> Which detector geometry do you have? [1 - horizontal flat detector array]
+> Which additional CORSIKA program options do you need? [8a - shower PLOT version (PLOTSH) (only for single events) and 8b - shower PLOT(C) version (PLOTSH2) (only for single events)]
+> z - *** Finish selection ***
+> Are you sure you want to continue with these current option selection: PLOTSH2 PLOTSH
+  yes or no ? (default: yes) > yes
+> Configuration is finished. How do you want to proceed? [f - Compiling and remove temporary files]
