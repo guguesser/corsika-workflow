@@ -3,11 +3,11 @@ import struct
 
 def check_file(rezultate_em, rezultate_mu, rezultate_hd):
     """It checks the input files to ensure they are optimized."""
-    files = [rezultate_em, rezultate_mu, rezultate_hd]
+    files = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
 
     for file in files:
-        file = open(arquivo, 'r')
-        new_file = open(f'ED{file}', 'w')
+        file = open(file, 'r')
+        new_file = open(f'ED{file}', '+w')
 
         for lines in file:
             line = lines.replace('\n', '')
