@@ -1,27 +1,32 @@
-# Imports
 import struct
 
+#Traceback (most recent call last):
+#  File "/home/razor/Documentos/guesser/checa.py", line 22, in <module>
+#    check_file('rezultate_em', 'rezultate_mu', 'rezultate_hd')
+#  File "/home/razor/Documentos/guesser/checa.py", line 14, in check_file
+#    if '' not in l and l[2] != l[6]:
+#IndexError: list index out of range
 def check_file(rezultate_em, rezultate_mu, rezultate_hd):
     """It checks the input files to ensure they are optimized."""
-    files = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
+    datas = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
+    
+    for data in datas:
+        file = open(data, 'r')
+        new_data_file = open(f'ED{data}', '+w')
 
-    for file in files:
-        file = open(file, 'r')
-        new_file = open(f'ED{file}', '+w')
-
-        for lines in file:
+        for lines in data:
             line = lines.replace('\n', '')
             l = line.split(' ')
 
             if '' not in l and l[2] != l[6]:
-                for object in l:
-                    new_file.write(object)
-                    new_file.write(' ')
-                new_file.write('\n')
+                for obj in l:
+                    new_data_file.write(obj)
+                    new_data_file.write(' ')
+                new_data_file.write('\n')
 
         file.close()
 
-
+# Não testado
 def tracks_to_root(DAT_em, DAT_mu, DAT_hd):
     """Convert the original binary file to a new text file."""
     datafiles = [DAT_em, DAT_mu, DAT_hd]
