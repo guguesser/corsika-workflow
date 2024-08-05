@@ -1,11 +1,6 @@
 import struct
 
-#Traceback (most recent call last):
-#  File "/home/razor/Documentos/guesser/checa.py", line 22, in <module>
-#    check_file('rezultate_em', 'rezultate_mu', 'rezultate_hd')
-#  File "/home/razor/Documentos/guesser/checa.py", line 14, in check_file
-#    if '' not in l and l[2] != l[6]:
-#IndexError: list index out of range
+# Função que checa e otimiza os arquivos antes de serem usados na animação
 def check_file(rezultate_em, rezultate_mu, rezultate_hd):
     """It checks the input files to ensure they are optimized."""
     datas = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
@@ -27,6 +22,7 @@ def check_file(rezultate_em, rezultate_mu, rezultate_hd):
         file.close()
 
 # Não testado
+# Função que converte arquivos binários para txt
 def tracks_to_root(DAT_em, DAT_mu, DAT_hd):
     """Convert the original binary file to a new text file."""
     datafiles = [DAT_em, DAT_mu, DAT_hd]
