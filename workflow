@@ -19,6 +19,7 @@ from math import cos
 
 
 # --- ANIMATION ---
+# Executar o arquivo perl
 # Função que converte arquivos binários para txt
 # Não testado
 def tracks_to_root(DAT_em, DAT_mu, DAT_hd):
