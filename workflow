@@ -1,4 +1,4 @@
-import struct
+#import struct
 import bpy
 import time
 import os
