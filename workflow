@@ -42,7 +42,7 @@ def process_curves_from_files(file_names, limit=-1):
 
     def make_curve(points, loop2):
         '''
-        Function that creates a curve in Blender.
+        Function that creates a curve in Blender
         '''
         # Create the Curve Datablock
         curveData = bpy.data.curves.new(f'myCurve{loop2}', type='CURVE')
@@ -69,22 +69,22 @@ def process_curves_from_files(file_names, limit=-1):
 
     def remove_materials_objects():
         '''
-        Function that removes all materials, objects, and curves.
+        Function that removes all materials, objects, and curves
         '''
         for material in bpy.data.materials: # Remove existing materials
             bpy.data.materials.remove(material)
     
         for obj in bpy.data.objects: # Remove all objects
             bpy.data.objects.remove(obj)
-
+    
         for curve in bpy.data.curves: # Remove all curves
             bpy.data.curves.remove(curve)
 
     def create_material(loop):
         '''
-        Function that creates a new material.
+        Function that creates a new material
 
-        The argument loop represents the file being used.
+        The argument loop represents the file being used
         '''
         bpy.data.materials.new(name="base"+f'{loop}') # Create material
         mat = bpy.data.materials[f'base{loop}'] # Select created material
@@ -106,7 +106,7 @@ def process_curves_from_files(file_names, limit=-1):
 
     def insert_material(loop, loop2):
         '''
-        Function that assigns material loop to curve loop2.
+        Function that assigns material loop to curve loop2
         '''
         mat = bpy.data.materials['base'+f'{loop}']
         curve = bpy.data.objects[f'myCurve{loop2}']
@@ -115,7 +115,7 @@ def process_curves_from_files(file_names, limit=-1):
 
     def animate(t_i, t_f, loop2):
         '''
-        Function responsible for animating the curve, only uses the start and end time of the curve.
+        Function responsible for animating the curve, only uses the start and end time of the curve
         '''
         if t_i > t_f: # If times are swapped
             d = t_f
@@ -140,6 +140,7 @@ def process_curves_from_files(file_names, limit=-1):
         '''
         x = []
         y = []
+
         xend = []
         yend = []
 
@@ -147,6 +148,7 @@ def process_curves_from_files(file_names, limit=-1):
         for line in data:
             line = line.replace('\n', '')
             l = line.split(' ')
+            print(l)
             new_data.append(l)
 
             x.append(float(l[2]) / 1000000)
@@ -159,13 +161,14 @@ def process_curves_from_files(file_names, limit=-1):
         y_range = get_range(y, yend) # [start, end]
 
         max_x = find_max(x_range)
+        print("hello")
         max_y = find_max(y_range)
 
         ranges = (max_x, max_y)
         all_curves_x = []
         all_curves_y = []
         for loop, data_range in enumerate(ranges):    
-            for line in data_range:
+            for line in data_range: # move to function
                 indexes = []
                 for j in range(len(line)):
                     if loop == 0:
@@ -195,26 +198,61 @@ def process_curves_from_files(file_names, limit=-1):
                 all_curves.append(data)   
         return all_curves
 
+    def find_same_line(start_end):
+        '''
+        Function that finds equal points in the data to classify them as belonging to the same curve. It also detects
+        line bifurcation, making the two lines different curves to avoid errors.
+    
+        start_end = [x, y, z, xend, yend, zend]
+        '''
+
+        lines = []
+        starts = [f[0] for f in start_end]
+        ends = [f[1] for f in start_end]
+    
+        k = 0
+        for i, f in start_end:
+            print(i)
+            if f in starts and i not in ends: # New line
+                lines.append([[i, f]])
+                continue
+        
+            count_bif = 0
+            for curve in lines: # Detect bifurcation
+                for xi, xf in curve:
+                    if i == xi or i == xf:
+                        count_bif += 1
+
+                    if count_bif > 1:
+                        lines.append([[i, f]])
+                        break
+                if count_bif > 1:
+                    break
+            if count_bif > 1:
+                continue
+            loop = 0
+            for curve in lines: # Add curve to an existing line
+                for xi, xf in curve:
+                    if i == xf:
+                        lines[loop].append([i, f])
+
+                loop += 1
+
+        return lines
+
     def get_range(start_list, end_list):
         '''
-        Function that organizes the data into [start, end].
+        Function that organizes the data into [start, end]
         '''
         tuples = []
         for i in range(len(start_list)):
             tuples.append([start_list[i], end_list[i]])
         return tuples
 
-    def find_max(data_ranges):
-        '''
-        Function that finds the maximum values in a list of ranges.
-        '''
-        max_values = [max([start[0] for start in data_ranges]), max([end[1] for end in data_ranges])]
-        return max_values
-
     ##                  
     ## MAIN CODE 
     ##                  
-    
+
     start_time = time.time()
 
     remove_materials_objects()
@@ -235,7 +273,7 @@ def process_curves_from_files(file_names, limit=-1):
             loop2 += 1
             points = []
             for count, line in enumerate(curve):
-                
+            
                 print(f"{count / len(curve) * 100}% line: {line}") # Progress
 
                 x = float(line[2]) / 1000000
@@ -291,11 +329,10 @@ def process_curves_from_files(file_names, limit=-1):
     bpy.context.scene.eevee.use_motion_blur = True
 
     # Save
-    bpy.ops.wm.save_mainfile(filepath=os.getcwd() + "/output.blend") # Save as output.blend
+    bpy.ops.wm.save_mainfile(filepath=os.getcwd() + "output.blend") # Save as output.blend
     print(f"Final frame: {last_frame}")
-    print(f'Took {(time.time() - start_time) / 60} minutes')
-
-
+    print('Took {} minutes'.format((time.time() - start_time) / 60))
+    
 command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
 execute_command_DAT_files(command_DAT_files)
 
