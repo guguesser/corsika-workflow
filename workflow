@@ -332,7 +332,9 @@ def process_curves_from_files(file_names, limit=-1):
     bpy.ops.wm.save_mainfile(filepath=os.getcwd() + "output.blend") # Save as output.blend
     print(f"Final frame: {last_frame}")
     print('Took {} minutes'.format((time.time() - start_time) / 60))
-    
+
+### FUNCTION CALLS 
+
 command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
 execute_command_DAT_files(command_DAT_files)
 
