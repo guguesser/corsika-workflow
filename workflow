@@ -338,11 +338,6 @@ def process_curves_from_files(limit=-1):
     print('Took {} minutes'.format((time.time() - start_time) / 60))
 
 # MAIN
-print("Hello, welcome to the simulation and animation workflow of atmospheric showers.")
-answer = input("Please indicate if you already have CORSIKA installed on your machine (y - yes/n - no): ")
-if answer == "y":
-    answer_2 = input("To work correctly, this file must be executed within the "run" folder of CORSIKA. Do you confirm this information? (y - yes/n - no): ")
-else:
-    print("")
+
 command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
 generate_DAT_files(command_DAT_files)
