@@ -351,6 +351,8 @@ while flag:
         print("\nGenerating the DAT files...")
         command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
         generate_DAT_files(command_DAT_files)
+        flag_2 = False
+        flag = False
       elif answer_2 == "no":
         print("\nPlease execute this file within the 'run' folder to proceed.")
         flag_2 = False
