@@ -4,18 +4,20 @@ import time
 from math import cos
 import os
 
-def generate_DAT_files(command_DAT_files):
+def generate_DAT_files():
     """Execute the command and return the DAT files."""
+    command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
     try:
         result = subprocess.run(command_DAT_files, shell=True, check=True, text=True, capture_output=True)
         return result.stdout
     except subprocess.CalledProcessError as e:
         return f"Error executing the command: {e}"
 
-def traks2root(command_traks2root):
+def traks2root():
     """Execute the command and return the files in text format."""
+    command_traks2root = "perl tracks2root.pl"
     try:
-        result = subprocess.run("perl tracks2root.pl", shell=True, check=True, text=True, capture_output=True)
+        result = subprocess.run(command_traks2root, shell=True, check=True, text=True, capture_output=True)
         return result.stdout
     except subprocess.CalledProcessError as e:
         return f"Error executing the command: {e}"
