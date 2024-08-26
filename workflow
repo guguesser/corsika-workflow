@@ -7,7 +7,7 @@ import os
 def generate_DAT_files(command_DAT_files):
     """Execute the command and return the DAT files."""
     try:
-        result = subprocess.run(command, shell=True, check=True, text=True, capture_output=True)
+        result = subprocess.run(command_DAT_files, shell=True, check=True, text=True, capture_output=True)
         return result.stdout
     except subprocess.CalledProcessError as e:
         return f"Error executing the command: {e}"
@@ -15,13 +15,14 @@ def generate_DAT_files(command_DAT_files):
 def traks2root(command_traks2root):
     """Execute the command and return the files in text format."""
     try:
-        result = subprocess.run(command, shell=True, check=True, text=True, capture_output=True)
+        result = subprocess.run("perl tracks2root.pl", shell=True, check=True, text=True, capture_output=True)
         return result.stdout
     except subprocess.CalledProcessError as e:
         return f"Error executing the command: {e}"
 
-def process_files(file_list):
+def process_files():
     """Optimize the files so that they are accepted in the animation."""
+    file_list = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
     for file_name in file_list:
         with open(file_name, 'r') as file, open(f'ED{file_name}', 'w') as output_file:
             for line in file:
@@ -31,7 +32,7 @@ def process_files(file_list):
                 if '' not in words and words[2] != words[6]:
                     output_file.write(' '.join(words) + '\n')
 
-def process_curves_from_files(file_names, limit=-1):
+def process_curves_from_files(limit=-1):
     '''
     Main function to process and animate curves from specified files.
     
@@ -39,6 +40,8 @@ def process_curves_from_files(file_names, limit=-1):
     - file_names: List of filenames to read data from.
     - limit: Number of lines to read from each file. -1 to read all lines.
     '''
+
+    file_names = ["EDrezultate_em", "EDrezultate_mu", "EDrezultate_hd"]
 
     def make_curve(points, loop2):
         '''
@@ -337,12 +340,3 @@ def process_curves_from_files(file_names, limit=-1):
 
 command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
 execute_command_DAT_files(command_DAT_files)
-
-#command_traks2root = "perl tracks2root.pl"
-#execute_command_traks2root(command_traks2root)
-
-file_list = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
-process_files(file_list)
-
-file_names = ["EDrezultate_em", "EDrezultate_mu", "EDrezultate_hd"]
-process_curves_from_files(file_names)
