@@ -4,9 +4,8 @@ import time
 from math import cos
 import os
 
-def generate_DAT_files():
+def generate_DAT_files(command_DAT_files):
     """Execute the command and return the DAT files."""
-    command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
     try:
         result = subprocess.run(command_DAT_files, shell=True, check=True, text=True, capture_output=True)
         return result.stdout
@@ -338,7 +337,12 @@ def process_curves_from_files(limit=-1):
     print(f"Final frame: {last_frame}")
     print('Took {} minutes'.format((time.time() - start_time) / 60))
 
-### FUNCTION CALLS 
-
+# MAIN
+print("Hello, welcome to the simulation and animation workflow of atmospheric showers.")
+answer = input("Please indicate if you already have CORSIKA installed on your machine (y - yes/n - no): ")
+if answer == "y":
+    answer_2 = input("To work correctly, this file must be executed within the "run" folder of CORSIKA. Do you confirm this information? (y - yes/n - no): ")
+else:
+    print("")
 command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
-execute_command_DAT_files(command_DAT_files)
+generate_DAT_files(command_DAT_files)
