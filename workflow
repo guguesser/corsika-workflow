@@ -1,7 +1,7 @@
 import subprocess
 
 def generate_DAT_files(command_DAT_files):
-    """Execute the command and capture the output."""
+    """Execute the command and return the DAT files."""
     try:
         result = subprocess.run(command, shell=True, check=True, text=True, capture_output=True)
         return result.stdout
