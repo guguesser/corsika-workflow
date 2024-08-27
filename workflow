@@ -12,11 +12,10 @@ def generate_DAT_files(command_DAT_files):
     except subprocess.CalledProcessError as e:
         return f"Error executing the command: {e}"
 
-def traks2root():
-    """Execute the command and return the files in text format."""
-    command_traks2root = "perl tracks2root.pl"
+def tracks2root(command_tracks2root):
+    """Execute the command and return the files in text format.""
     try:
-        result = subprocess.run(command_traks2root, shell=True, check=True, text=True, capture_output=True)
+        result = subprocess.run(command_tracks2root, shell=True, check=True, text=True, capture_output=True)
         return result.stdout
     except subprocess.CalledProcessError as e:
         return f"Error executing the command: {e}"
@@ -351,6 +350,9 @@ while flag:
         print("\nGenerating the DAT files...")
         command_DAT_files = "./corsika77500Linux_EPOS_urqmd < all-inputs-epos"
         generate_DAT_files(command_DAT_files)
+        print("\nConverting DAT files to TXT format...")
+        command_tracks2root = "perl tracks2root.pl"
+        tracks2root(command_tracks2root)
         flag_2 = False
         flag = False
       elif answer_2 == "no":
