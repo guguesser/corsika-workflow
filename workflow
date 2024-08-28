@@ -1,17 +1,9 @@
 import subprocess
 
-def generate_DAT_files(command_DAT_files):
-    """Execute the command and return the DAT files."""
+def execute_command(command):
+    """Execute the command on the terminal command line."""
     try:
-        result = subprocess.run(command_DAT_files, shell=True, check=True, text=True, capture_output=True)
-        return result.stdout
-    except subprocess.CalledProcessError as e:
-        return f"Error executing the command: {e}"
-
-def tracks2root(command_tracks2root):
-    """Execute the command and return the files in text format."""
-    try:
-        result = subprocess.run(command_tracks2root, shell=True, check=True, text=True, capture_output=True)
+        result = subprocess.run(command, shell=True, check=True, text=True, capture_output=True)
         return result.stdout
     except subprocess.CalledProcessError as e:
         return f"Error executing the command: {e}"
@@ -27,30 +19,6 @@ def process_files(file_list):
                 if '' not in words and words[2] != words[6]:
                     output_file.write(' '.join(words) + '\n')
 
-def delete_files(command_delete_files):
-    """Deletes files that are no longer needed to generate the simulation."""
-    try:
-        result = subprocess.run(command_delete_files, shell=True, check=True, text=True, capture_output=True)
-        return result.stdout
-    except subprocess.CalledProcessError as e:
-        return f"Error executing the command: {e}"
-
-def create_folder(command_create_folder):
-    """Create a folder to organize the workflow."""
-    try:
-        result = subprocess.run(command_create_folder, shell=True, check=True, text=True, capture_output=True)
-        return result.stdout
-    except subprocess.CalledProcessError as e:
-        return f"Error executing the command: {e}"
-
-def move_files(command_move_files):
-    """Move files to folders."""
-    try:
-        result = subprocess.run(command_move_files, shell=True, check=True, text=True, capture_output=True)
-        return result.stdout
-    except subprocess.CalledProcessError as e:
-        return f"Error executing the command: {e}"
-
 # MAIN
 print("Hello, welcome to the simulation and animation workflow of atmospheric showers.")
 flag = True
@@ -63,22 +31,22 @@ while flag:
       if answer_2 == "yes":
         print("\nLet's start with running the simulation.")
         print("\nGenerating the DAT files...")
-        command_DAT_files = "./corsika77550Linux_EPOS_urqmd < all-inputs-epos"
-        generate_DAT_files(command_DAT_files)
+        command = "./corsika77550Linux_EPOS_urqmd < all-inputs-epos"
+        execute_command(command)
         print("\nConverting DAT files to TXT format...")
-        command_tracks2root = "perl tracks2root.pl"
-        tracks2root(command_tracks2root)
-        command_delete_files = "rm *.map"
-        delete_files(command_delete_files)
+        command = "perl tracks2root.pl"
+        execute_command(command)
+        command = "rm *.map"
+        execute_command(command)
         print("\nOptimizing TXT files...")
         file_list = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
         process_files(file_list)
-        command_delete_files = "rm rezultate*"
-        delete_files(command_delete_files)
-        command_create_folder = "mkdir result"
-        create_folder(command_create_folder)
-        command_move_files = "mv EDrezultate* result/"
-        move_files(command_move_files)
+        command = "rm rezultate*"
+        execute_command(command)
+        command = "mkdir result"
+        execute_command(command)
+        command = "mv EDrezultate* result/"
+        execute_command(command)
         flag_2 = False
         flag = False
       elif answer_2 == "no":
