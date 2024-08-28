@@ -22,7 +22,7 @@ rm *.png
 
 # ARGUMENTS
 
-files_name = ["EDrezultate1_100","EDrezultate2_100","EDrezultate3_100"]
+files_name = ["EDrezultate_em","EDrezultate_mu","EDrezultate_hd"]
 limit = -1 # Number of lines to be read from each file. -1 to read all.
 
 def make_curve(points, loop2):
