@@ -3,7 +3,7 @@ import time
 from math import cos
 import os
 
-files_name = ["EDrezultate_em","EDrezultate_mu","EDrezultate_hd"]
+file_names = ["EDrezultate_em","EDrezultate_mu","EDrezultate_hd"]
 limit = -1 # how many lines will be read from each file. -1 to read all
 
 def make_curve(points, loop2):
