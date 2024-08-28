@@ -65,7 +65,7 @@ while flag:
     while flag_2:
       answer_2 = input("\nTo work correctly, this file must be executed within the 'run' directory of CORSIKA. Are you at 'run' directory? (yes/no/quit): ")
       if answer_2 == "yes":
-        print("\n### Let's start with running the simulation. ###")
+        print("\n----- Let's start with running the simulation. -----")
         print("\nGenerating the DAT files...")
         command = "./corsika77550Linux_EPOS_urqmd < all-inputs-epos"
         execute_command(command)
