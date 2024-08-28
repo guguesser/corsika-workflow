@@ -19,6 +19,42 @@ def process_files(file_list):
                 if '' not in words and words[2] != words[6]:
                     output_file.write(' '.join(words) + '\n')
 
+def tracks2root():
+    # Opens the file 'tracks2root.pl' in write mode ('w')
+    with open('tracks2root.pl', 'w') as file:
+        # Writes the Perl script to the file
+        file.write('#!/usr/bin/perl -w\n\n')
+        file.write("# Define the corresponding input and output files\n")
+        file.write('@files = (\n')
+        file.write("    {input => 'DAT000001.track_mu', output => 'rezultate_mu'},\n")
+        file.write("    {input => 'DAT000001.track_em', output => 'rezultate_em'},\n")
+        file.write("    {input => 'DAT000001.track_hd', output => 'rezultate_hd'}\n")
+        file.write(');\n\n')
+        file.write("# Process each file\n")
+        file.write('foreach $file (@files) {\n')
+        file.write('    my $datafile = $file->{input};\n')
+        file.write('    my $results = $file->{output};\n\n')
+        file.write('    # Open the input file\n')
+        file.write('    open(DATAFILE, $datafile) or die "Unable to open $datafile: $!";\n')
+        file.write('    binmode(DATAFILE);\n\n')
+        file.write('    # Open the output file\n')
+        file.write('    open(RESULTS, ">$results") or die "Unable to create $results: $!";\n\n')
+        file.write('    sysseek(DATAFILE, 0, 0) or die "Unable to seek byte 0 in $datafile: $!";\n')
+        file.write('    my $counter = 0;\n\n')
+        file.write('    while (read(DATAFILE, my $buffer2, 48)) {\n')
+        file.write('        my $buffer = substr($buffer2, 4, 40);\n')
+        file.write('        my @properties = unpack("A4" x 10, $buffer);\n')
+        file.write('        for (my $i = 0; $i < 10; $i++) {\n')
+        file.write('            $properties[$i] = unpack("f", pack("A*", $properties[$i]));\n')
+        file.write('        }\n')
+        file.write('        print RESULTS join(" ", @properties);\n')
+        file.write('        print RESULTS "\\n";\n')
+        file.write('        $counter++;\n')
+        file.write('    }\n\n')
+        file.write('    close(RESULTS);\n')
+        file.write('    close(DATAFILE);\n')
+        file.write('}\n')
+
 # MAIN
 print("Hello, welcome to the simulation and animation workflow of atmospheric showers.")
 flag = True
@@ -34,6 +70,7 @@ while flag:
         command = "./corsika77550Linux_EPOS_urqmd < all-inputs-epos"
         execute_command(command)
         print("\nConverting DAT files to TXT format...")
+        tracks2root()
         command = "perl tracks2root.pl"
         execute_command(command)
         command = "rm *.map"
