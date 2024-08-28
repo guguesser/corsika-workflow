@@ -43,9 +43,9 @@ while flag:
         process_files(file_list)
         command = "rm rezultate*"
         execute_command(command)
-        command = "mkdir data"
+        command = "mkdir dados"
         execute_command(command)
-        command = "mv EDrezultate* data/"
+        command = "mv EDrezultate* dados/"
         execute_command(command)
         flag_2 = False
         flag = False
