@@ -80,11 +80,11 @@ while flag:
         process_files(file_list)
         command = "rm rezultate*"
         execute_command(command)
-        command = "mkdir dados"
+        command = "mkdir data"
         execute_command(command)
         command = "head -n 1000 EDrezultate_em > EDrezultate_em_1k"
         execute_command(command)
-        command = "mv EDrezultate* dados/"
+        command = "mv EDrezultate* data/"
         execute_command(command)
         print("\nCreating the atmospheric shower animation...")
         command = "blender -b -P blender_visu_script.py -E BLENDER_EEVEE -o img###.png -a"
