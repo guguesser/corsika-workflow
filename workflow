@@ -45,7 +45,16 @@ while flag:
         execute_command(command)
         command = "mkdir dados"
         execute_command(command)
+        command = "head -n 1000 EDrezultate_em > EDrezultate_em_1k"
+        execute_command(command)
         command = "mv EDrezultate* dados/"
+        execute_command(command)
+        print("\nCreating the atmospheric shower animation...")
+        command = "blender -b -P blender_visu_script.py -E BLENDER_EEVEE -o img###.png -a"
+        execute_command(command)
+        command = "cat *.png | ffmpeg -f image2pipe -r 30 -i - output.mp4 -y"
+        execute_command(command)
+        command = "rm *.png"
         execute_command(command)
         flag_2 = False
         flag = False
