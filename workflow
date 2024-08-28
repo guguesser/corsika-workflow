@@ -27,6 +27,30 @@ def process_files(file_list):
                 if '' not in words and words[2] != words[6]:
                     output_file.write(' '.join(words) + '\n')
 
+def delete_files(command_delete_files):
+    """Deletes files that are no longer needed to generate the simulation."""
+    try:
+        result = subprocess.run(command_delete_files, shell=True, check=True, text=True, capture_output=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        return f"Error executing the command: {e}"
+
+def create_folder(command_create_folder):
+    """Create a folder to organize the workflow."""
+    try:
+        result = subprocess.run(command_create_folder, shell=True, check=True, text=True, capture_output=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        return f"Error executing the command: {e}"
+
+def move_files(command_move_files):
+    """Move files to folders."""
+    try:
+        result = subprocess.run(command_move_files, shell=True, check=True, text=True, capture_output=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        return f"Error executing the command: {e}"
+
 # MAIN
 print("Hello, welcome to the simulation and animation workflow of atmospheric showers.")
 flag = True
@@ -44,9 +68,17 @@ while flag:
         print("\nConverting DAT files to TXT format...")
         command_tracks2root = "perl tracks2root.pl"
         tracks2root(command_tracks2root)
-        print("Optimizing TXT files...")
+        command_delete_files = "rm *.map"
+        delete_files(command_delete_files)
+        print("\nOptimizing TXT files...")
         file_list = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
         process_files(file_list)
+        command_delete_files = "rm rezultate*"
+        delete_files(command_delete_files)
+        command_create_folder = "mkdir result"
+        create_folder(command_create_folder)
+        command_move_files = "mv EDrezultate* result/"
+        move_files(command_move_files)
         flag_2 = False
         flag = False
       elif answer_2 == "no":
