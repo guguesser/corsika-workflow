@@ -93,6 +93,7 @@ while flag:
         execute_command(command)
         command = "rm *.png"
         execute_command(command)
+        print("\nAnimation completed and saved as 'output.mp4'")
         flag_2 = False
         flag = False
       elif answer_2 == "no":
