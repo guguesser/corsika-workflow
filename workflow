@@ -112,13 +112,13 @@ def animate(t_s, t_e, loop2):
     
     curve.keyframe_insert(data_path='bevel_factor_end')
     
-    scene.frame(t_s)
+    scene.frame_set(t_s)
     curve.bevel_factor_end = 0
-    curve.keyframe_insert(data_path'bevel_factor_end')
+    curve.keyframe_insert(data_path='bevel_factor_end')
     curve.animation_data.action.fcurves[0].keyframe_points[0].interpolation = 'LINEAR'
     curve.bevel_factor_mapping_end = 'SPLINE'
 
-def curve(data):
+def process_curve_data(data):
     '''
     Function that returns the data separated into different curves.
     '''
@@ -225,7 +225,7 @@ def same_line(initial_final):
     
     return(lines)
     
-def init_final(l_i, l_f)
+def init_final(l_i, l_f):
     '''
     Function that organizes the data into `[start, end]`
     '''
@@ -248,7 +248,7 @@ for loop, file_name in enumerate(files_name):
     tabraw = file.readlines(limit)
     file.close()
     
-    data_curves = curve(tabraw)
+    data_curves = process_curve_data(tabraw)
     
     create_material(loop)
     
