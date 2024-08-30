@@ -1,38 +1,35 @@
-#!/usr/bin/perl -w
-
-# Define os arquivos de entrada e saída correspondentes
-@arquivos = (
-    {entrada => 'DAT000001.track_mu', saida => 'rezultate_mu'},
-    {entrada => 'DAT000001.track_em', saida => 'rezultate_em'},
-    {entrada => 'DAT000001.track_hd', saida => 'rezultate_hd'}
-);
-
-# Processa cada arquivo
-foreach $arquivo (@arquivos) {
-    my $datafile = $arquivo->{entrada};
-    my $rezultate = $arquivo->{saida};
-
-    # Abre o arquivo de entrada
-    open(DATAFILE, $datafile) or die "Não foi possível abrir $datafile: $!";
-    binmode(DATAFILE);
-
-    # Abre o arquivo de saída
-    open(REZULTATE, ">$rezultate") or die "Não foi possível criar $rezultate: $!";
-
-    sysseek(DATAFILE, 0, 0) or die "Não foi possível buscar byte 0 em $datafile: $!";
-    my $tester = 0;
-
-    while (read(DATAFILE, my $buffer2, 48)) {
-        my $buffer = substr($buffer2, 4, 40);
-        my @propriet = unpack("A4" x 10, $buffer);
-        for (my $i = 0; $i < 10; $i++) {
-            $propriet[$i] = unpack("f", pack("A*", $propriet[$i]));
-        }
-        print REZULTATE join(" ", @propriet);
-        print REZULTATE "\n";
-        $tester++;
-    }
-
-    close(REZULTATE);
-    close(DATAFILE);
-}
+def tracks2root():
+    # Opens the file 'tracks2root.pl' in write mode ('w')
+    with open('tracks2root.pl', 'w') as file:
+        # Writes the Perl script to the file
+        file.write('#!/usr/bin/perl -w\n\n')
+        file.write("# Define the corresponding input and output files\n")
+        file.write('@files = (\n')
+        file.write("    {input => 'DAT000001.track_mu', output => 'rezultate_mu'},\n")
+        file.write("    {input => 'DAT000001.track_em', output => 'rezultate_em'},\n")
+        file.write("    {input => 'DAT000001.track_hd', output => 'rezultate_hd'}\n")
+        file.write(');\n\n')
+        file.write("# Process each file\n")
+        file.write('foreach $file (@files) {\n')
+        file.write('    my $datafile = $file->{input};\n')
+        file.write('    my $results = $file->{output};\n\n')
+        file.write('    # Open the input file\n')
+        file.write('    open(DATAFILE, $datafile) or die "Unable to open $datafile: $!";\n')
+        file.write('    binmode(DATAFILE);\n\n')
+        file.write('    # Open the output file\n')
+        file.write('    open(RESULTS, ">$results") or die "Unable to create $results: $!";\n\n')
+        file.write('    sysseek(DATAFILE, 0, 0) or die "Unable to seek byte 0 in $datafile: $!";\n')
+        file.write('    my $counter = 0;\n\n')
+        file.write('    while (read(DATAFILE, my $buffer2, 48)) {\n')
+        file.write('        my $buffer = substr($buffer2, 4, 40);\n')
+        file.write('        my @properties = unpack("A4" x 10, $buffer);\n')
+        file.write('        for (my $i = 0; $i < 10; $i++) {\n')
+        file.write('            $properties[$i] = unpack("f", pack("A*", $properties[$i]));\n')
+        file.write('        }\n')
+        file.write('        print RESULTS join(" ", @properties);\n')
+        file.write('        print RESULTS "\\n";\n')
+        file.write('        $counter++;\n')
+        file.write('    }\n\n')
+        file.write('    close(RESULTS);\n')
+        file.write('    close(DATAFILE);\n')
+        file.write('}\n')
