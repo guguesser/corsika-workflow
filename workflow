@@ -315,8 +315,6 @@ while flag:
         print("\nOptimizing TXT files...")
         file_list = ['rezultate_em', 'rezultate_mu', 'rezultate_hd']
         process_files(file_list)
-        command = "rm rezultate*"
-        execute_command(command)
         command = "mkdir data"
         execute_command(command)
         command = "head -n 1000 EDrezultate_em > EDrezultate_em_1k"
