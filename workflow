@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 def execute_command(command):
     """Execute the command on the terminal command line."""
@@ -294,7 +295,11 @@ while flag:
         command = "./corsika77550Linux_EPOS_urqmd < all-inputs-epos"
         execute_command(command)
         print("\nConverting DAT files to TXT format...")
-        tracks2root()
+        file_path = "tracks2root.pl"
+        if os.path.exists(file_path):
+            continue
+        else:
+            tracks2root()
         command = "perl tracks2root.pl"
         execute_command(command)
         print("\nOptimizing TXT files...")
@@ -307,7 +312,11 @@ while flag:
         command = "mv EDrezultate* data/"
         execute_command(command)
         print("\nCreating the atmospheric shower animation...")
-        blender_script()
+        file_path = "blender_script.py"
+        if os.path.exists(file_path):
+            continue
+        else:
+            blender_script()
         command = "blender -b -P blender_script.py -E BLENDER_EEVEE -o img###.png -a"
         execute_command(command)
         command = "cat *.png | ffmpeg -f image2pipe -r 30 -i - output.mp4 -y"
