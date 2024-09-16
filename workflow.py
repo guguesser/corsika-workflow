@@ -284,8 +284,8 @@ def blender_script():
 print("Hello, welcome to the simulation and animation workflow of atmospheric showers.")
 continue_workflow = True
 while continue_workflow:
-  answer = input("\nPlease indicate if you already have CORSIKA installed on your machine (yes/no/quit): ")
-  if answer == "yes":
+  installation_response = input("\nPlease indicate if you already have CORSIKA installed on your machine (yes/no/quit): ")
+  if installation_response == "yes":
     ready_for_simulation = True
     while ready_for_simulation:
       answer_2 = input("\nTo work correctly, this file must be executed within the 'run' directory of CORSIKA. Are you at 'run' directory? (yes/no/quit): ")
@@ -335,12 +335,12 @@ while continue_workflow:
         continue_workflow = False
       else:
         print("\nInvalid command. Please enter 'yes', 'no', or 'quit'.")
-  elif answer == "no":
+  elif installation_response == "no":
     print("\nFirstly, send an email to tanguy.pierog@kit.edu expressing interest in using the software so that he can provide the password required for the program installation.")
     print("The installation of CORSIKA77500 and all its directories is available at the following link: https://web.iap.kit.edu/corsika/download/")
     print("Enter the username 'corsika' and the password provided through the email received from the software's technical team.\n")
     continue_workflow = False
-  elif answer == "quit":
+  elif installation_response == "quit":
     continue_workflow = False
   else:
     print("\nInvalid command. Please enter 'yes', 'no', or 'quit'.")
