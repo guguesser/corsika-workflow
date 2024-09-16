@@ -286,8 +286,8 @@ continue_workflow = True
 while continue_workflow:
   answer = input("\nPlease indicate if you already have CORSIKA installed on your machine (yes/no/quit): ")
   if answer == "yes":
-    flag_2 = True
-    while flag_2:
+    ready_for_simulation = True
+    while ready_for_simulation:
       answer_2 = input("\nTo work correctly, this file must be executed within the 'run' directory of CORSIKA. Are you at 'run' directory? (yes/no/quit): ")
       if answer_2 == "yes":
         print("\n\n----- Let's start with running the simulation. -----")
@@ -324,14 +324,14 @@ while continue_workflow:
         command = "rm *.png"
         execute_command(command)
         print("\nAnimation completed and saved as 'output.mp4'")
-        flag_2 = False
+        ready_for_simulation = False
         continue_workflow = False
       elif answer_2 == "no":
         print("\nPlease execute this file within the 'run' directory to proceed.")
-        flag_2 = False
+        ready_for_simulation = False
         continue_workflow = False
       elif answer_2 == "quit":
-        flag_2 = False
+        ready_for_simulation = False
         continue_workflow = False
       else:
         print("\nInvalid command. Please enter 'yes', 'no', or 'quit'.")
