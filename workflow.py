@@ -1,4 +1,4 @@
-/import subprocess
+import subprocess
 import os
 
 def execute_command(command):
@@ -334,7 +334,7 @@ while flag:
         flag_2 = False
         flag = False
       else:
-        print("\nInvalid command. Please enter 'yes', 'no' or 'quit'.")
+        print("\nInvalid command. Please enter 'yes', 'no', or 'quit'.")
   elif answer == "no":
     print("\nFirstly, send an email to tanguy.pierog@kit.edu expressing interest in using the software so that he can provide the password required for the program installation.")
     print("The installation of CORSIKA77500 and all its directories is available at the following link: https://web.iap.kit.edu/corsika/download/")
@@ -343,4 +343,4 @@ while flag:
   elif answer == "quit":
     flag = False
   else:
-    print("\nInvalid command. Please enter 'yes', 'no' or 'quit'.")
+    print("\nInvalid command. Please enter 'yes', 'no', or 'quit'.")
