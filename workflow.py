@@ -288,8 +288,8 @@ while continue_workflow:
   if installation_response == "yes":
     ready_for_simulation = True
     while ready_for_simulation:
-      answer_2 = input("\nTo work correctly, this file must be executed within the 'run' directory of CORSIKA. Are you at 'run' directory? (yes/no/quit): ")
-      if answer_2 == "yes":
+      directory_response = input("\nTo work correctly, this file must be executed within the 'run' directory of CORSIKA. Are you at 'run' directory? (yes/no/quit): ")
+      if directory_response == "yes":
         print("\n\n----- Let's start with running the simulation. -----")
         print("\nGenerating the DAT files...")
         command = "./corsika77550Linux_EPOS_urqmd < all-inputs-epos"
@@ -326,11 +326,11 @@ while continue_workflow:
         print("\nAnimation completed and saved as 'output.mp4'")
         ready_for_simulation = False
         continue_workflow = False
-      elif answer_2 == "no":
+      elif directory_response == "no":
         print("\nPlease execute this file within the 'run' directory to proceed.")
         ready_for_simulation = False
         continue_workflow = False
-      elif answer_2 == "quit":
+      elif directory_response == "quit":
         ready_for_simulation = False
         continue_workflow = False
       else:
