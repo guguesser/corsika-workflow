@@ -1,6 +1,6 @@
 import sys
 
-# Função para ler o arquivo de entrada
+# Function to read input file
 def read_input_card(filename):
     config = {}
     try:
@@ -13,28 +13,28 @@ def read_input_card(filename):
         sys.exit(1)
     return config
 
-# Função principal que executa as ações baseadas no card de entrada
+# Main function that performs actions based on the input card
 def main():
-    input_card = "input_card.txt"  # Nome do arquivo de configuração
+    input_card = "input_card.txt"  # Configuration file name
 
-    # Lê as configurações do arquivo
+    # Reads settings from file
     config = read_input_card(input_card)
 
-    # Executa a simulação se o usuário desejar
+    # Run the simulation if the user wishes
     if config.get('execute_simulation') == 'yes':
         print("Executando a simulação...")
-        # Chame sua função de simulação aqui
+        # Call your simulation function here
     else:
         print("Simulação ignorada.")
 
-    # Mostra o gráfico se o usuário desejar
+    # Show the graph if the user wants
     if config.get('show_graph') == 'yes':
         print("Mostrando o gráfico...")
-        # Chame sua função de plotagem aqui
+        # Call your plot function here
     else:
         print("Gráfico não exibido.")
 
-    # Verifica se o programa deve encerrar
+    # Checks whether the program should terminate
     if config.get('exit_program') == 'yes':
         print("Encerrando o programa...")
         sys.exit(0)
