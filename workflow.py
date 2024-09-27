@@ -1,5 +1,19 @@
 import subprocess
 import os
+import sys
+
+def read_input_card(filename):
+    '''Function to read input file'''
+    config = {}
+    try:
+        with open(filename, 'r') as file:
+            for line in file:
+                key, value = line.strip().split('=')
+                config[key] = value.lower()
+    except FileNotFoundError:
+        print(f"Error: File {filename} not found.")
+        sys.exit(1)
+    return config
 
 def execute_command(command):
     """Execute the command on the terminal command line."""
